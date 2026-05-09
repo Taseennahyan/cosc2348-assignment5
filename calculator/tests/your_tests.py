@@ -1,27 +1,9 @@
-import subprocess
+#!/usr/bin/env python3
+from calculator_adapter import run
 
-def run_calculator(*args):
-    result = subprocess.run(
-        ["./calculator"] + list(args),
-        capture_output=True,
-        text=True,
-        timeout=10
-    )
-    return result.stdout.strip(), result.returncode
+# Checks that the program outputs "7" for an input of "3 + 4"
+assert run("3 + 4").output == "7"
+# Checks that the program outputs "7" for an input of "10 - 3"
+assert run("10 - 3").output == "7"
 
-def test_addition():
-    stdout, returncode = run_calculator("3", "+", "4")
-    assert returncode == 0
-    assert "7" in stdout
-    print("TEST RUN: test_addition passed")
-
-def test_subtraction():
-    stdout, returncode = run_calculator("10", "-", "3")
-    assert returncode == 0
-    assert "7" in stdout
-    print("TEST RUN: test_subtraction passed")
-
-if __name__ == "__main__":
-    test_addition()
-    test_subtraction()
-    print("All tests passed!")
+print("All tests passed!")
